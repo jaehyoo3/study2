@@ -5,7 +5,7 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const posts = ref([]);
+const posts = ref<any[]>([]);
 
 axios.get("/api/posts?page=1&size=5").then((response) => {
   response.data.forEach((r: any) => {
@@ -19,8 +19,8 @@ axios.get("/api/posts?page=1&size=5").then((response) => {
     <li v-for="post in posts" :key="post.id">
       <div class="title">
         <router-link :to="{ name: 'read', params: { postId: post.id } }">{{
-          post.title
-        }}</router-link>
+            post.title
+          }}</router-link>
       </div>
 
       <div class="content">
@@ -29,7 +29,7 @@ axios.get("/api/posts?page=1&size=5").then((response) => {
 
       <div class="sub d-flex">
         <div class="category">개발</div>
-        <div class="regDate">2023-06-01</div>
+        <div class="regDate">2022-06-01</div>
       </div>
     </li>
   </ul>
