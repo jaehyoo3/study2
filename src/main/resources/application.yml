@@ -5,9 +5,9 @@ spring:
       path: /h2-console
 
   datasource:
-    url: "jdbc:mysql://localhost/blogs"
-    username: "root"
-    password: "1234"
+    url:  "jdbc:mysql://mydb.cd2ixijusx48.ap-northeast-2.rds.amazonaws.com:3306/blogs"
+    username: "admin"
+    password: "!dmssk6480"
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   data:
@@ -19,3 +19,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
