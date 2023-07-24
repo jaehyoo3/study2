@@ -1,13 +1,13 @@
 package com.hodolog.api.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,6 +19,24 @@ public class User {
     private String name;
     private String email;
     private String password;
-
     private LocalDateTime createdAt;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Session> sessions = new ArrayList<>();
+
+    @Builder
+    public User(String name, String email, String password, LocalDateTime createdAt) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.createdAt = createdAt;
+    }
+
+    public Session addSession() {
+        Session session = Session.builder()
+                .user(this)
+                .build();
+        sessions.add(session);
+
+        return session;
+    }
 }
