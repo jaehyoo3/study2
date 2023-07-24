@@ -1,0 +1,5 @@
+### 테스트 요총
+
+GET http://localhost:9000/api/foo
+Content-Type: application/json
+Authorization: asdasd
