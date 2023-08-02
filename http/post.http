@@ -2,4 +2,4 @@
 
 GET http://localhost:9000/api/foo
 Content-Type: application/json
-Authorization: asdasd
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.Y3bvGR2LdtvXVmUF4DlkAB6eG6EkVxsxKh183AQXdok

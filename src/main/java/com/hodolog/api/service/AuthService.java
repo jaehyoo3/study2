@@ -8,17 +8,19 @@ import com.hodolog.api.request.Login;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
     private final UserRepository userRepository;
 
-    public String signin(Login login) {
+    @Transactional
+    public Long signin(Login login) {
         User user = userRepository.findByEmailAndPassword(login.getEmail(), login.getPassword())
                 .orElseThrow(InvalidSigningInformation::new);
-        Session session = user.addSession();
 
-        return session.getAccessToken();
+        return user.getId();
     }
 
 }
