@@ -7,6 +7,7 @@ import com.hodolog.api.request.PostCreate;
 import com.hodolog.api.request.PostEdit;
 import com.hodolog.api.request.PostSearch;
 import com.hodolog.api.response.PostResponse;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ class PostServiceTest {
 
     @Autowired
     private PostRepository postRepository;
+
+    @BeforeEach
+    void clean() {
+        postRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("글 작성")
@@ -96,14 +102,14 @@ class PostServiceTest {
     void test4() {
         // given
         Post post = Post.builder()
-                .title("테스트")
+                .title("호돌맨")
                 .content("반포자이")
                 .build();
         postRepository.save(post);
 
         PostEdit postEdit = PostEdit.builder()
-                .title("테스트")
-                .content("반ㅇㅇ포자이")
+                .title("호돌걸")
+                .content("반포자이")
                 .build();
 
         // when
@@ -120,13 +126,13 @@ class PostServiceTest {
     void test5() {
         // given
         Post post = Post.builder()
-                .title("231")
+                .title("호돌맨")
                 .content("반포자이")
                 .build();
         postRepository.save(post);
 
         PostEdit postEdit = PostEdit.builder()
-                .title("123")
+                .title("호돌맨")
                 .content("초가집")
                 .build();
 
