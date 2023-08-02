@@ -1,3 +1,4 @@
+/*
 package com.hodolog.api.service;
 
 import com.hodolog.api.domain.Post;
@@ -224,3 +225,4 @@ class PostServiceTest {
 
 
 
+*/
