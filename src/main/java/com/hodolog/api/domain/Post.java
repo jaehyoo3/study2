@@ -3,6 +3,7 @@ package com.hodolog.api.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -18,10 +19,13 @@ public class Post {
     @Lob
     private String content;
 
+    private LocalDateTime createdAt;
+
     @Builder
     public Post(String title, String content) {
         this.title = title;
         this.content = content;
+        this.createdAt = LocalDateTime.now();
     }
 
     public PostEditor.PostEditorBuilder toEditor() {

@@ -22,7 +22,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public class AuthResolver implements HandlerMethodArgumentResolver {
 
     private final SessionRepository sessionRepository;
-    private static final String KEY = "MAmlSvtB7CXj9aBa/5nl/eAk+N34PejDmR7QMP59mnw=";
+    private final AppConfig appConfig;
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.getParameter().equals(UserSession.class);
@@ -30,33 +30,18 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-//        HttpServletRequest servletRequset = webRequest.getNativeRequest(HttpServletRequest.class);
-//        if(servletRequset == null) {
-//            log.error("servletRequest null");
-//            throw new Unauthorized();
-//        }
-//
-//        Cookie[] cookies = servletRequset.getCookies();
-//        if(cookies == null || cookies.length == 0) {
-//            log.error("cookie 없음");
-//            throw new Unauthorized();
-//        }
-//
-//        String accessToken = cookies[0].getValue();
-//
-//        Session session = sessionRepository.findByAccessToken(accessToken)
-//                .orElseThrow(Unauthorized::new);
 
         String jws = webRequest.getHeader("Authorization");
         if(jws == null || jws.equals("")) {
             throw new Unauthorized();
         }
-        byte[] decodedKey = Base64.decodeBase64(KEY);
+
         try {
             Jws<Claims> claims = Jwts.parserBuilder()
-                    .setSigningKey(decodedKey)
+                    .setSigningKey(appConfig.getJwtKey())
                     .build()
                     .parseClaimsJws(jws);
+
             String userId = claims.getBody().getSubject();
             return new UserSession(Long.parseLong(userId));
         } catch (JwtException e) {

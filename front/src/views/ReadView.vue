@@ -2,6 +2,7 @@
 import { defineProps, onMounted, ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import dayjs from "dayjs";
 
 const props = defineProps({
   postId: {
@@ -14,6 +15,7 @@ const post = ref({
   id: 0,
   title: "",
   content: "",
+  createdAt: "",
 });
 
 const router = useRouter();
@@ -36,7 +38,7 @@ onMounted(() => {
 
       <div class="sub d-flex">
         <div class="category">개발</div>
-        <div class="regDate">2022-06-01 23:59:59</div>
+        <div class="regDate">{{ dayjs(post.createdAt).format("YYYY. MM. DD HH:mm") }}</div>
       </div>
     </el-col>
   </el-row>

@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -19,9 +20,11 @@ public class PostCreate {
     @NotBlank(message = "콘텐츠를 입력해주세요.")
     private String content;
 
+    private LocalDateTime createdAt;
     @Builder
     public PostCreate(String title, String content) {
         this.title = title;
         this.content = content;
+        this.createdAt = LocalDateTime.now();
     }
 }

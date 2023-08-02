@@ -27,6 +27,7 @@ public class PostService {
         Post post = Post.builder()
                 .title(postCreate.getTitle())
                 .content(postCreate.getContent())
+
                 .build();
 
         postRepository.save(post);
@@ -40,6 +41,7 @@ public class PostService {
                 .id(post.getId())
                 .title(post.getTitle())
                 .content(post.getContent())
+                .createdAt(post.getCreatedAt())
                 .build();
     }
 

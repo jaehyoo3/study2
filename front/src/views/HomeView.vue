@@ -2,6 +2,9 @@
 import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+dayjs.locale('ko');
 
 const router = useRouter();
 
@@ -29,7 +32,7 @@ axios.get("/api/posts?page=1&size=5").then((response) => {
 
       <div class="sub d-flex">
         <div class="category">개발</div>
-        <div class="regDate">2022-06-01</div>
+        <div class="regDate">{{ dayjs(post.createdAt).format('YYYY. MM. DD') }}</div>
       </div>
     </li>
   </ul>
