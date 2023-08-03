@@ -1,5 +1,6 @@
 package com.hodolog.api.service;
 
+import com.hodolog.api.crypto.PasswordEncoder;
 import com.hodolog.api.domain.Session;
 import com.hodolog.api.domain.User;
 import com.hodolog.api.exception.AlreadyExistsEmailException;
@@ -22,22 +23,27 @@ public class AuthService {
 
     @Transactional
     public Long signin(Login login) {
-        User user = userRepository.findByEmailAndPassword(login.getEmail(), login.getPassword())
+        User user = userRepository.findByEmail(login.getEmail())
                 .orElseThrow(InvalidSigningInformation::new);
+
+        PasswordEncoder encoder = new PasswordEncoder();
+
+        if(!encoder.matches(login.getPassword(), user.getPassword())) {
+            throw new InvalidSigningInformation();
+        }
 
         return user.getId();
     }
 
     public void signup(Signup signup) {
-        Optional<User> userOptional = userRepository.findbyEmail(signup.getEmail());
+        Optional<User> userOptional = userRepository.findByEmail(signup.getEmail());
         if (userOptional.isPresent()) {
             throw new AlreadyExistsEmailException();
         }
 
-        SCryptPasswordEncoder encoder = new SCryptPasswordEncoder(
-                16, 8, 1, 32, 64);
+        PasswordEncoder encoder = new PasswordEncoder();
 
-        String encryptedPassword = encoder.encode(signup.getPassword());
+        String encryptedPassword = encoder.encrpyt(signup.getPassword());
 
         var user = User.builder()
                 .name(signup.getName())
