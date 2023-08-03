@@ -1,6 +1,5 @@
 package com.hodolog.api.controller;
 
-import com.hodolog.api.config.data.UserSession;
 import com.hodolog.api.request.PostCreate;
 import com.hodolog.api.request.PostEdit;
 import com.hodolog.api.request.PostSearch;
@@ -10,8 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.awt.desktop.UserSessionEvent;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @Slf4j
@@ -19,14 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class PostController {
-
     private final PostService postService;
-
-    @GetMapping("/foo")
-    public Long foo(UserSession userSession) {
-        log.info(">>>{}", userSession.id);
-        return userSession.id;
-    }
     @PostMapping("/posts")
     public void post(@RequestBody @Valid PostCreate request) {
         postService.write(request);
