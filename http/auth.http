@@ -20,3 +20,11 @@ Content-Type: application/json
 ### 메인페이지
 
 GET http://localhost:9000
+
+### 사용자 페이지
+
+GET http://localhost:9000/user
+
+### 관리자 페이지
+
+GET http://localhost:9000/admin
