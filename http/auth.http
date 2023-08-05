@@ -4,7 +4,7 @@ POST http://localhost:9000/auth/login
 Content-Type: application/x-www-form-urlencoded
 
 
-username=qwer@co.kr&password=1234
+username=qwer@co.kr&password=1234ㅇㅇ
 
 ### 회원가입
 
@@ -14,7 +14,7 @@ Content-Type: application/json
 {
   "name": "qwer",
   "email" : "qwer@co.kr",
-  "password": "1234"
+  "password": "123ㄴㄴ4"
 }
 
 ### 메인페이지
